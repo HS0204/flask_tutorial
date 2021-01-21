@@ -34,6 +34,8 @@ def FetchData():
         password = request.args.get('pw')
         return redirect(url_for('Success', name=user, passwrd=password))
 
+# 가입 페이지
+
 @app.route('/signup_page')
 def signup_page():
     return render_template("signup.html")
@@ -42,9 +44,9 @@ def signup_page():
 def Resigtered(name, passwrd, cnfpass):
     if passwrd == cnfpass:
         database.update({name:passwrd})
-        return "<h1>You have successfully signed up</h1>"
+        return render_template("signup.html", message="You have successfully signed up")
     else:
-        return "<h1>Password didn't matched</h1>"
+        return render_template("signup.html", message="Password didn't matched")
 
 @app.route('/signup', methods=['POST', 'GET'])
 def Signup():
